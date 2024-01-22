@@ -16,7 +16,6 @@ public class ResponseDto<T> {
     private final LocalDateTime createdAt;
     private final T data;
 
-    // 생성자
     public ResponseDto(boolean isSuccess, int code, String message, T data) {
         this.isSuccess = isSuccess;
         this.code = code;

@@ -14,7 +14,6 @@ public enum ErrorResponse {
         this.message = message;
     }
 
-
     public int getCode() {
         return code;
     }
