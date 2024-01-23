@@ -58,7 +58,7 @@ jobs:
         # 도커 작업
         script: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-          docker stop $(docker ps -a -q)
-          docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/bridge_server
-          docker rm $(docker ps --filter 'status=exited' -a -q)
+          docker stop $(docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/bridge_server)
+          docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+          docker container prune -f
           docker image prune -a -f
