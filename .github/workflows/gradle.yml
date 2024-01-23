@@ -56,7 +56,7 @@ jobs:
 
       # 기존 docker 컨테이너 중지
       - name: docker stop container
-        run: docker stop $(sdocker ps -q) 2>$null
+        run: docker stop $(docker ps -q) 2>$null
 
       # 최신 이미지 컨테이너화 및 실행
       - name: docker run new container
