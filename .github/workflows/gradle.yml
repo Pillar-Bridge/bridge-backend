@@ -57,11 +57,9 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }} # pem 키
         # 도커 작업
         script: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-          CONTAINER_ID=$(docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/bridge_server)
-          if [ -n "$CONTAINER_ID" ]; then
-            docker stop $CONTAINER_ID
-          fi
-          docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-          docker container prune -f
-          docker image prune -a -f
+          sudo docker ps
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+          sudo docker stop bridge_server
+          sudo docker rm bridge_server
+          sudo docker run -it -d -p 8080:8080 --name bridge_server ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+          sudo docker image prune -f
