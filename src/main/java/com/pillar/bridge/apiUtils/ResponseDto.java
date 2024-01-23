@@ -3,11 +3,10 @@ package com.pillar.bridge.apiUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 @Getter
-@JsonPropertyOrder({"isSuccess", "code", "message", "created_at", "data"})
+@JsonPropertyOrder({"isSuccess", "code", "message", "createdAt", "data"})
 public class ResponseDto<T> {
     @JsonProperty("isSuccess")
     private final boolean isSuccess;
@@ -23,4 +22,10 @@ public class ResponseDto<T> {
         this.created_at = LocalDateTime.now();
         this.data = data;
     }
+
+    @JsonProperty("isSuccess")
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
 }
