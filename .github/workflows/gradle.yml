@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-docker-image:
 
     runs-on: ubuntu-latest
 
@@ -44,3 +44,25 @@ jobs:
 
     - name: docker Hub push
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+  
+  run-docker-image-on-ec2:
+    needs: build-docker-image
+    runs-on: self-hosted
+
+    steps:
+      # 최신 이미지 pull
+      - name: docker pull
+        run: sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+
+      # 기존 docker 컨테이너 중지
+      - name: docker stop container
+        run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
+
+      # 최신 이미지 컨테이너화 및 실행
+      - name: docker run new container
+        run: sudo docker run --name bridge_server --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+
+      # 불필요한 이미지 정리
+      - name: delete old docker image
+        run: sudo docker system prune -f
+    
