@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  build-docker-image:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -28,41 +28,33 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: make application.properties
+      run: |
+        cd ./src/main/resources
+        touch ./application.properties
+        echo "${{ secrets.APPLICATION_PROD }}" > ./application.properties
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      run: ./gradlew build -x test
+
+    - name: Docker build
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        docker build -t app .
+        docker tag app ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+    - name: Deploy
+      uses: appleboy/ssh-action@master
       with:
-        arguments: clean bootJar
-
-    - name: docker image build
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server .
-
-    - name: docker login
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-    - name: docker Hub push
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-  
-  run-docker-image-on-ec2:
-    needs: build-docker-image
-    runs-on: self-hosted
-
-    steps:
-      # 최신 이미지 pull
-      - name: docker pull
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-
-      # 기존 docker 컨테이너 중지
-      - name: docker stop container
-        run: docker stop $(docker ps -q) 2>$null
-
-      # 최신 이미지 컨테이너화 및 실행
-      - name: docker run new container
-        run: docker run --name bridge_server --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
-
-      # 불필요한 이미지 정리
-      - name: delete old docker image
-        run: docker system prune -f
-    
+        host: ${{ secrets.HOST }} # EC2 인스턴스 퍼블릭 DNS
+        username: ec2-user
+        key: ${{ secrets.PRIVATE_KEY }} # pem 키
+        # 도커 작업
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+          docker stop $(docker ps -a -q)
+          docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/bridge_server
+          docker rm $(docker ps --filter 'status=exited' -a -q)
+          docker image prune -a -f
