@@ -1,7 +1,7 @@
 package com.pillar.bridge.controller;
 
-import com.pillar.bridge.dto.NearbySearchRequest;
-import com.pillar.bridge.dto.NearbySearchResponse;
+import com.pillar.bridge.dto.PlacesDto;
+import com.pillar.bridge.dto.googleApi.PlacesResponse;
 import com.pillar.bridge.service.PlacesService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +16,8 @@ public class PlacesController {
         this.placesService = placesService;
     }
 
-    @PostMapping("/searchNearby")
-    public NearbySearchResponse searchNearby(@RequestBody NearbySearchRequest request) {
+    @PostMapping("/places/google")
+    public PlacesResponse searchNearby(@RequestBody PlacesDto request) {
         return placesService.searchNearbyPlaces(request);
     }
 }

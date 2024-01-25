@@ -1,15 +1,15 @@
-package com.pillar.bridge.dto;
+package com.pillar.bridge.dto.googleApi;
 
 import java.util.List;
 
-public class NearbySearchResponse {
+public class PlacesResponse {
     private List<Place> places;
 
     // 기본 생성자
-    public NearbySearchResponse() {}
+    public PlacesResponse() {}
 
     // 매개변수가 있는 생성자
-    public NearbySearchResponse(List<Place> places) {
+    public PlacesResponse(List<Place> places) {
         this.places = places;
     }
 
@@ -25,23 +25,32 @@ public class NearbySearchResponse {
 
     public static class Place {
         private DisplayName displayName;
+        private List<String> types;
 
         // 기본 생성자
         public Place() {}
 
         // 매개변수가 있는 생성자
-        public Place(DisplayName displayName) {
+        public Place(DisplayName displayName, List<String> types) {
             this.displayName = displayName;
+            this.types = types;
         }
 
-        // Getter
+        // Getter와 Setter 메소드
         public DisplayName getDisplayName() {
             return displayName;
         }
 
-        // Setter
         public void setDisplayName(DisplayName displayName) {
             this.displayName = displayName;
+        }
+
+        public List<String> getTypes() {
+            return types;
+        }
+
+        public void setTypes(List<String> types) {
+            this.types = types;
         }
 
         public static class DisplayName {
