@@ -7,7 +7,7 @@ import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
 import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.config.Constants;
 import com.pillar.bridge.dto.NameList;
-import com.pillar.bridge.dto.kakaoapi.PlaceNameResponse;
+import com.pillar.bridge.dto.kakaoApi.PlaceNameResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

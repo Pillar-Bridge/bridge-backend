@@ -1,6 +1,6 @@
 package com.pillar.bridge.dto;
 
-import com.pillar.bridge.dto.kakaoapi.Document;
+import com.pillar.bridge.dto.kakaoApi.Document;
 
 import java.util.List;
 

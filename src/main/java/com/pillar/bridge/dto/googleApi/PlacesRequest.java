@@ -1,22 +1,33 @@
-package com.pillar.bridge.dto;
+package com.pillar.bridge.dto.googleApi;
 
-public class NearbySearchRequest {
+import java.util.List;
+
+public class PlacesRequest {
+    private List<String> includedTypes;
     private int maxResultCount;
     private String rankPreference;
     private LocationRestriction locationRestriction;
 
     // 기본 생성자
-    public NearbySearchRequest() {
+    public PlacesRequest() {
     }
 
     // 매개변수가 있는 생성자
-    public NearbySearchRequest(int maxResultCount, String rankPreference, LocationRestriction locationRestriction) {
+    public PlacesRequest(List<String> includedTypes, int maxResultCount, String rankPreference, LocationRestriction locationRestriction) {
+        this.includedTypes = includedTypes;
         this.maxResultCount = maxResultCount;
         this.rankPreference = rankPreference;
         this.locationRestriction = locationRestriction;
     }
 
-    // Getter 및 Setter
+    public List<String> getIncludedTypes() {
+        return includedTypes;
+    }
+
+    public void setIncludedTypes(List<String> includedTypes) {
+        this.includedTypes = includedTypes;
+    }
+
     public int getMaxResultCount() {
         return maxResultCount;
     }
