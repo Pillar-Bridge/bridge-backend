@@ -14,12 +14,9 @@ import java.util.List;
 
 @Service
 public class PlacesService {
-
     @Value("${google.api.key}")
     private String apiKey;
-
     private final RestTemplate restTemplate;
-
     public PlacesService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }

@@ -18,12 +18,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class RecommendPlaceService {
-
     private final Logger logger = LoggerFactory.getLogger(RecommendPlaceService.class);
-
     private static final String AUTHORIZATION = "Authorization";
     private static final String KAKAO_APP_KEY_PREFIX = "KakaoAK ";
-
     @Autowired
     private RestTemplate restTemplate;
 
@@ -57,8 +54,8 @@ public class RecommendPlaceService {
             return new NameList(placeNameResponse.getDocuments());
 
         } catch (Exception e) {
-            logger.error("장소 검색 중 오류 발생", e);
-            return null; // 또는 컨트롤러에서 처리할 사용자 정의 예외를 던질 수 있습니다.
+            logger.error("카카오 api 장소 검색 중 오류", e);
+            return null;
         }
     }
 }
