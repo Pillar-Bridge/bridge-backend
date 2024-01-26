@@ -1,10 +1,6 @@
 package com.pillar.bridge.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pillar.bridge.apiUtils.ResponseDto;
-import com.pillar.bridge.apiUtils.ResponseUtil;
-import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
-import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.config.Constants;
 import com.pillar.bridge.dto.NameList;
 import com.pillar.bridge.dto.kakaoApi.PlaceNameResponse;
@@ -34,7 +30,7 @@ public class RecommendPlaceService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public ResponseDto<NameList> searchPlaceByKeyword(double latitude, double longitude, int radius) {
+    public NameList searchPlaceByKeyword(double latitude, double longitude, int radius) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.set(AUTHORIZATION, KAKAO_APP_KEY_PREFIX + kakaoApiKey);
@@ -58,13 +54,11 @@ public class RecommendPlaceService {
             ObjectMapper mapper = new ObjectMapper();
             PlaceNameResponse placeNameResponse = mapper.readValue(response.getBody(), PlaceNameResponse.class);
 
-            NameList nameList = new NameList(placeNameResponse.getDocuments());
-
-            return ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", nameList);
+            return new NameList(placeNameResponse.getDocuments());
 
         } catch (Exception e) {
-            logger.error("Error during place search", e);
-            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, null);
+            logger.error("장소 검색 중 오류 발생", e);
+            return null; // 또는 컨트롤러에서 처리할 사용자 정의 예외를 던질 수 있습니다.
         }
     }
 }
