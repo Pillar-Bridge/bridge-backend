@@ -1,8 +1,14 @@
 package com.pillar.bridge.controller;
 
+import com.pillar.bridge.apiUtils.ResponseDto;
+import com.pillar.bridge.apiUtils.ResponseUtil;
+import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
+import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
+import com.pillar.bridge.dto.DialogueDto;
 import com.pillar.bridge.dto.PlacesDto;
 import com.pillar.bridge.dto.googleApi.PlacesResponse;
 import com.pillar.bridge.service.PlacesService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +23,13 @@ public class PlacesController {
     }
 
     @PostMapping("/places/google")
-    public PlacesResponse searchNearby(@RequestBody PlacesDto request) {
-        return placesService.searchNearbyPlaces(request);
+    public ResponseDto<PlacesResponse> searchNearby(@RequestBody PlacesDto request) {
+        try {
+            PlacesResponse response = placesService.searchNearbyPlaces(request);
+            return ResponseUtil.SUCCESS(SuccessResponse.OK, "Successfully retrieved data", response);
+        } catch (Exception e) {
+            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, null);
+        }
     }
+
 }
