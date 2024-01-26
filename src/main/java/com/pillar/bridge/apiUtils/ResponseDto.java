@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@JsonPropertyOrder({"isSuccess", "code", "message", "createdAt", "data"})
+@JsonPropertyOrder({"isSuccess", "code", "message", "created_at", "data"})
 public class ResponseDto<T> {
     @JsonProperty("isSuccess")
     private final boolean isSuccess;
@@ -26,6 +26,22 @@ public class ResponseDto<T> {
     @JsonProperty("isSuccess")
     public boolean isSuccess() {
         return isSuccess;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public T getData() {
+        return data;
     }
 
 }
