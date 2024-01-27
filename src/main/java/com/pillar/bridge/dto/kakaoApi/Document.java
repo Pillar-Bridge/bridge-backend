@@ -9,21 +9,23 @@ public class Document {
     @JsonProperty("place_name")
     private String placeName;
 
-    private String distance;
+    @JsonProperty("category_group_name")
+    private String categoryGroupName;
+
 
     public String getPlaceName() {
         return placeName;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getCategoryGroupName() {
+        return categoryGroupName;
     }
 
     @Override
     public String toString() {
         return "Document{" +
                 "placeName='" + placeName + '\'' +
-                ", distance='" + distance + '\'' +
+                ", categoryGroupName='" + categoryGroupName + '\'' +
                 '}';
     }
 }
