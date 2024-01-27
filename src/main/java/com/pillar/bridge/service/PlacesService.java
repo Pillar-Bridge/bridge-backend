@@ -28,7 +28,7 @@ public class PlacesService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("X-Goog-Api-Key", apiKey);
-        headers.add("X-Goog-FieldMask", "places.displayName,places.types");
+        headers.add("X-Goog-FieldMask", "places.displayName,places.primaryType");
 
         HttpEntity<PlacesRequest> entity = new HttpEntity<>(request, headers);
         return restTemplate.postForEntity(url, entity, PlacesResponse.class).getBody();

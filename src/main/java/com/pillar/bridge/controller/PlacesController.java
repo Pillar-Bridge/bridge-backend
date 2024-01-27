@@ -20,7 +20,7 @@ public class PlacesController {
         this.placesService = placesService;
     }
 
-    @PostMapping("/places/google")
+    @PostMapping("/places/recommendations/google")
     public ResponseDto<PlacesResponse> searchNearby(@RequestBody PlacesDto request) {
         try {
             PlacesResponse response = placesService.searchNearbyPlaces(request);
