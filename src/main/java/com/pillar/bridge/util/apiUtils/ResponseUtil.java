@@ -1,7 +1,7 @@
-package com.pillar.bridge.apiUtils;
+package com.pillar.bridge.util.apiUtils;
 
-import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
-import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
+import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
+import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
 
 public class ResponseUtil {
 

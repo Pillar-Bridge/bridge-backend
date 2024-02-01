@@ -1,4 +1,4 @@
-package com.pillar.bridge.apiUtils.codeStatus;
+package com.pillar.bridge.util.apiUtils.codeStatus;
 
 public enum SuccessResponse {
     OK(200, "OK"),

@@ -1,11 +1,11 @@
 package com.pillar.bridge.controller;
 
-import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
+import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
 import com.pillar.bridge.dto.DialogueDto;
 import com.pillar.bridge.service.DialogueService;
-import com.pillar.bridge.apiUtils.ResponseDto;
-import com.pillar.bridge.apiUtils.ResponseUtil;
-import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
+import com.pillar.bridge.util.apiUtils.ResponseDto;
+import com.pillar.bridge.util.apiUtils.ResponseUtil;
+import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

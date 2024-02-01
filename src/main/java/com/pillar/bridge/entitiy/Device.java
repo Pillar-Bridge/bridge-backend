@@ -1,19 +1,22 @@
 package com.pillar.bridge.entitiy;
 
 import jakarta.persistence.*;
+
 @Entity
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String deviceKey; // 기기 고유 KEY
+    private String deviceKey;
 
-    public void setDeviceKey(String string) {
-        this.deviceKey = string;
-    }
 
     public String getDeviceKey() {
         return deviceKey;
     }
+
+    public void setDeviceKey(String deviceKey) {
+        this.deviceKey = deviceKey;
+    }
+
 }
