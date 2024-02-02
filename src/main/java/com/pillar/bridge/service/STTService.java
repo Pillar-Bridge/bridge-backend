@@ -11,14 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class STTService {
 
     private final RestTemplate restTemplate;
-    private final String fastApiBaseUrl = "http://203.253.71.189:5000";
+    private final String fastApiUrl = "http://203.253.71.189:5000";
 
     public STTService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     public String transcribeAudio(MultipartFile file) {
-        String url = fastApiBaseUrl + "/stt";
+        String url = fastApiUrl + "/stt";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);

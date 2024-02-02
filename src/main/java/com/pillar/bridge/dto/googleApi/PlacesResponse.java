@@ -4,13 +4,10 @@ import java.util.List;
 
 public class PlacesResponse {
     private List<Place> places;
-
     public PlacesResponse() {}
-
     public PlacesResponse(List<Place> places) {
         this.places = places;
     }
-
     public List<Place> getPlaces() {
         return places;
     }

@@ -8,11 +8,9 @@ public class PlacesRequest {
     private String rankPreference;
     private LocationRestriction locationRestriction;
 
-    // 기본 생성자
     public PlacesRequest() {
     }
 
-    // 매개변수가 있는 생성자
     public PlacesRequest(List<String> includedTypes, int maxResultCount, String rankPreference, LocationRestriction locationRestriction) {
         this.includedTypes = includedTypes;
         this.maxResultCount = maxResultCount;

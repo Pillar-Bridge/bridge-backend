@@ -1,19 +1,30 @@
 package com.pillar.bridge.entitiy;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Getter
+@NoArgsConstructor
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String deviceKey; // 기기 고유 KEY
+    @Column(nullable = false)
+    private String uuid;
+    @Column(nullable = false)
+    private String refreshToken;
 
-    public void setDeviceKey(String string) {
-        this.deviceKey = string;
+    public String getUuid() {
+        return uuid;
     }
+    public String getRefreshToken() { return refreshToken; }
 
-    public String getDeviceKey() {
-        return deviceKey;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
+    public void setRefreshToken(String refreshToken) { this.refreshToken = refreshToken; }
+
 }

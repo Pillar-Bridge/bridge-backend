@@ -1,4 +1,4 @@
-package com.pillar.bridge.apiUtils;
+package com.pillar.bridge.util.apiUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
