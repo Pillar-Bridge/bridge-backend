@@ -27,7 +27,7 @@ public class RecommendPlaceController {
     public ResponseEntity<ResponseDto<NameList>> searchPlaceByKeywordPost(@RequestBody Map<String, Object> requestBody) {
         double latitude = (double) requestBody.get("latitude");
         double longitude = (double) requestBody.get("longitude");
-        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 1000;
+        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 500;
 
         logger.info("/kakao_api 위도 [{}], 경도 [{}], radius [{}]", latitude, longitude, radius);
 

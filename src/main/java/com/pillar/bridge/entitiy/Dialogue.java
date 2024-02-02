@@ -15,25 +15,25 @@ import lombok.NoArgsConstructor;
 public class Dialogue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dialogueId;
+    private long dialogueId;
 
     @Column(name = "PLACE", length = 10, nullable = false)
     private String place;
 
-    // Device 엔티티와 연결하기 위한 UUID 필드 추가
-    @Column(name = "DEVICE_UUID", nullable = false)
+    @Column(name = "UUID", nullable = false)
     private String deviceUuid;
+
 
     public void setPlace(String place) {
         this.place = place;
     }
 
-    // deviceUuid의 getter와 setter도 추가
-    public String getDeviceUuid() {
+    public String getUuid() {
         return deviceUuid;
     }
 
-    public void setDeviceUuid(String deviceUuid) {
+    public long getId(){ return dialogueId;}
+    public void setUuid(String deviceUuid) {
         this.deviceUuid = deviceUuid;
     }
 }

@@ -1,6 +1,6 @@
-package com.pillar.bridge.dto;
+package com.pillar.bridge.dto.dialogue;
 
-public class DialogueDto {
+public class DialogueRequest {
     private String place;
 
     public String getPlace() {
@@ -10,4 +10,8 @@ public class DialogueDto {
     public void setPlace(String place) {
         this.place = place;
     }
+
+
+
+
 }

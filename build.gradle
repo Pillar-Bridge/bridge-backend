@@ -39,6 +39,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 
+	//servlet
+	compileOnly 'jakarta.servlet:jakarta.servlet-api:5.0.0-M2'
+
 
 
 }

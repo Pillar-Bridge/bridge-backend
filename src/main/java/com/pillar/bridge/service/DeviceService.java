@@ -3,7 +3,7 @@ package com.pillar.bridge.service;
 import com.pillar.bridge.dto.DeviceDto;
 import com.pillar.bridge.entitiy.Device;
 import com.pillar.bridge.repository.DeviceRepository;
-import com.pillar.bridge.util.JwtUtil;
+import com.pillar.bridge.util.jwt.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +17,28 @@ public class DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
 
-
+    @Autowired
+    private JwtUtil jwtUtil = new JwtUtil();
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceService.class);
-    private JwtUtil jwtUtil = new JwtUtil();
+
 
     public DeviceDto registerDevice() {
         Device device = new Device();
-        device.setDeviceKey(UUID.randomUUID().toString());
+        device.setUuid(UUID.randomUUID().toString());
 
         // JWT 기반 Refresh Token 생성
-        String refreshToken = jwtUtil.generateRefreshToken(device.getDeviceKey());
+        String accessToken = jwtUtil.generateAccessToken(device.getUuid());
+        String refreshToken = jwtUtil.generateRefreshToken(device.getUuid());
+        device.setRefreshToken(refreshToken);
 
-        logger.info("Device Key: " + device.getDeviceKey());
+        logger.info("Device Key: " + device.getUuid());
+        logger.info("Access Token: " + accessToken);
         logger.info("Refresh Token: " + refreshToken);
-        deviceRepository.save(device);
+        deviceRepository.save(device); // DB에 저장
 
         DeviceDto deviceDto = new DeviceDto();
-        deviceDto.setDeviceKey(device.getDeviceKey());
+        deviceDto.setAccessToken(accessToken);
         deviceDto.setRefreshToken(refreshToken);
 
         return deviceDto;

@@ -22,6 +22,6 @@ public class STTController {
     @PostMapping("/audio")
     public ResponseEntity<?> transcribeAudio(@RequestParam("file") MultipartFile file) {
         String transcription = sttService.transcribeAudio(file);
-        return ResponseEntity.ok(ResponseUtil.SUCCESS(SuccessResponse.OK, "음성 -> 텍스트 변환 성공", transcription));
+        return ResponseEntity.ok(ResponseUtil.SUCCESS(SuccessResponse.OK, "텍스트 변환 성공", transcription));
     }
 }

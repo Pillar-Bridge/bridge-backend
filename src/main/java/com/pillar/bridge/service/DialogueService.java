@@ -10,9 +10,10 @@ public class DialogueService {
     @Autowired
     private DialogueRepository repository;
 
-    public Dialogue createDialogue(String place) {
+    public Dialogue createDialogue(String place, String uuid) {
         Dialogue dialogue = new Dialogue();
         dialogue.setPlace(place);
+        dialogue.setUuid(uuid);
         return repository.save(dialogue);
     }
 }
