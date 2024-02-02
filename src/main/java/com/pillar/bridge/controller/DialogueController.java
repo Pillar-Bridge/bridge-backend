@@ -9,11 +9,10 @@ import com.pillar.bridge.util.apiUtils.ResponseDto;
 import com.pillar.bridge.util.apiUtils.ResponseUtil;
 import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-// 기타 임포트 생략
+
 
 @RestController
 @RequestMapping("/dialogues")
@@ -25,7 +24,7 @@ public class DialogueController {
     public ResponseDto<DialogueResponse> createDialogue(@RequestBody DialogueRequest dialogueDto) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String uuid = (String) authentication.getPrincipal(); // 인증 정보에서 UUID 추출
+            String uuid = (String) authentication.getPrincipal();
 
 
             Dialogue dialogue = dialogueService.createDialogue(dialogueDto.getPlace(), uuid);

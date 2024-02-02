@@ -19,15 +19,12 @@ public class Messages {
     @Id
     private Integer message_Id;
 
-    // foreign key dialogue_Id
     private Integer dialogue_Id;
 
     private String speaker;
 
-    // 타임스탬프
     private Integer timestamp;
 
-    // 메시지
     private String message_text;
 
 

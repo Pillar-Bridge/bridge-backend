@@ -23,7 +23,6 @@ public class Dialogue {
     @Column(name = "UUID", nullable = false)
     private String deviceUuid;
 
-
     public void setPlace(String place) {
         this.place = place;
     }

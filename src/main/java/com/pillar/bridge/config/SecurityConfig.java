@@ -17,12 +17,12 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(); // JwtAuthenticationFilter 인스턴스 생성
+        return new JwtAuthenticationFilter();
     }
 
     @Bean
     public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
-        return new JwtAuthenticationEntryPoint(); // JwtAuthenticationEntryPoint 인스턴스 생성
+        return new JwtAuthenticationEntryPoint();
     }
 
     @Bean

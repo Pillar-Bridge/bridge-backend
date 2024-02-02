@@ -10,8 +10,4 @@ public class DialogueRequest {
     public void setPlace(String place) {
         this.place = place;
     }
-
-
-
-
 }

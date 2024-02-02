@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 @Service
@@ -27,7 +26,6 @@ public class DeviceService {
         Device device = new Device();
         device.setUuid(UUID.randomUUID().toString());
 
-        // JWT 기반 Refresh Token 생성
         String accessToken = jwtUtil.generateAccessToken(device.getUuid());
         String refreshToken = jwtUtil.generateRefreshToken(device.getUuid());
         device.setRefreshToken(refreshToken);
