@@ -30,8 +30,8 @@ public class SecurityConfig {
         http
                 .csrf((csrf)->csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/places/recommendations").permitAll()
-                        .anyRequest().authenticated()) // 그 외 모든 요청은 인증 필요
+                        .requestMatchers("/device/register", "/places/recommendations", "/device/refresh").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling((exceptionConfig) -> exceptionConfig.authenticationEntryPoint(jwtAuthenticationEntryPoint()));
         return http.build();

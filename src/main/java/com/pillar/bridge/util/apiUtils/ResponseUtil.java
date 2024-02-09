@@ -9,8 +9,8 @@ public class ResponseUtil {
         return new ResponseDto<>(true, success.getCode(), message, data);
     }
 
-    public static <T> ResponseDto<T> FAILED(ErrorResponse error, T data) {
-        return new ResponseDto<>(false, error.getCode(), error.getMessage(), data);
+    public static <T> ResponseDto<T> FAILED(ErrorResponse error, String message, T data) {
+        return new ResponseDto<>(false, error.getCode(), message, data);
     }
 
 }

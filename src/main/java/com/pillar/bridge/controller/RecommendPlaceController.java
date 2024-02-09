@@ -36,7 +36,7 @@ public class RecommendPlaceController {
             ResponseDto<NameList> response = ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", nameList);
             return ResponseEntity.ok(response);
         } else {
-            ResponseDto<NameList> response = ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, null);
+            ResponseDto<NameList> response = ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, "internal server error",null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }

@@ -32,7 +32,7 @@ public class DialogueController {
 
             return ResponseUtil.SUCCESS(SuccessResponse.OK, "성공적으로 반영되었습니다", response);
         } catch (Exception e) {
-            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, null);
+            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, "internal server error", null);
         }
     }
 }

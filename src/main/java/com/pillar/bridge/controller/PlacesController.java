@@ -26,7 +26,7 @@ public class PlacesController {
             PlacesResponse response = placesService.searchNearbyPlaces(request);
             return ResponseUtil.SUCCESS(SuccessResponse.OK, "Successfully retrieved data", response);
         } catch (Exception e) {
-            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, null);
+            return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, "internal server error",null);
         }
     }
 
