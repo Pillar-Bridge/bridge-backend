@@ -5,7 +5,6 @@ import com.pillar.bridge.repository.DeviceRepository;
 import com.pillar.bridge.util.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -21,7 +20,7 @@ public class DeviceRefreshService {
         if (refreshToken != null) {
             Optional<Device> deviceOptional = deviceRepository.findByRefreshToken(refreshToken);
 
-            if (deviceOptional.isPresent() && jwtUtil.validateToken(refreshToken)) {
+            if (deviceOptional.isPresent() && jwtUtil.validateRefreshToken(refreshToken)) {
                 Device device = deviceOptional.get();
                 return jwtUtil.generateAccessToken(device.getUuid());
             }

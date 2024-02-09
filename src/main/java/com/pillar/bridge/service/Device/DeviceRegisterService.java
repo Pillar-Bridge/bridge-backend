@@ -21,7 +21,6 @@ public class DeviceRegisterService {
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceRegisterService.class);
 
-
     public DeviceDto registerDevice() {
         Device device = new Device();
         device.setUuid(UUID.randomUUID().toString());

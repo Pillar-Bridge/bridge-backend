@@ -42,21 +42,23 @@ public class JwtUtil {
     }
 
     // access token 유효성 검증
-    public boolean validateToken(String authToken) {
+    public boolean validateToken(String authToken) throws JwtException{
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException ex) {
             logger.info("유효하지 않은 토큰입니다");
-
+            throw new JwtException("잘못된 형식의 토큰입니다.");
         } catch (ExpiredJwtException ex) {
             logger.info("만료된 토큰입니다");
+            throw new JwtException("토큰이 만료되었습니다.");
         } catch (UnsupportedJwtException ex) {
             logger.info("잘못된 토큰입니다");
+            throw new JwtException("지원되지 않는 토큰입니다.");
         } catch (IllegalArgumentException ex) {
             logger.info("토큰이 비어있습니다");
+            throw new JwtException("토큰이 비어있습니다.");
         }
-        return false;
     }
 
     //refresh token 유효성 검증
@@ -66,7 +68,6 @@ public class JwtUtil {
             return true;
         } catch (MalformedJwtException ex) {
             logger.info("유효하지 않은 토큰입니다");
-
         } catch (ExpiredJwtException ex) {
             logger.info("만료된 토큰입니다");
         } catch (UnsupportedJwtException ex) {

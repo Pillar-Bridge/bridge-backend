@@ -1,7 +1,7 @@
 package com.pillar.bridge.config;
 
-import com.pillar.bridge.util.jwt.JwtAuthenticationEntryPoint;
 import com.pillar.bridge.util.jwt.JwtAuthenticationFilter;
+import com.pillar.bridge.util.jwt.JwtExceptionFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -21,8 +21,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
-        return new JwtAuthenticationEntryPoint();
+    public JwtExceptionFilter jwtExceptionFilter() {
+        return new JwtExceptionFilter();
     }
 
     @Bean
@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/device/register", "/places/recommendations", "/device/refresh").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling((exceptionConfig) -> exceptionConfig.authenticationEntryPoint(jwtAuthenticationEntryPoint()));
+                .addFilterBefore(jwtExceptionFilter() ,JwtAuthenticationFilter.class);
         return http.build();
     }
 }
