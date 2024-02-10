@@ -41,14 +41,36 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // 토큰 유효성 검증
-    public boolean validateToken(String authToken) {
+    // access token 유효성 검증
+    public boolean validateToken(String authToken) throws JwtException{
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException e) {
+            logger.info("SignatureException");
+            throw new JwtException(ErrorMessage.WRONG_TYPE_TOKEN.getMsg());
+        } catch (MalformedJwtException e) {
+            logger.info("MalformedJwtException");
+            throw new JwtException(ErrorMessage.UNSUPPORTED_TOKEN.getMsg());
+        } catch (ExpiredJwtException e) {
+            logger.info("ExpiredJwtException");
+            throw new JwtException(ErrorMessage.EXPIRED_TOKEN.getMsg());
+        } catch (IllegalArgumentException e) {
+            logger.info("IllegalArgumentException");
+            throw new JwtException(ErrorMessage.UNKNOWN_ERROR.getMsg());
+        } catch (NullPointerException e) {
+            logger.info("NullPointerException");
+            throw new JwtException(ErrorMessage.ACCESS_DENIED.getMsg());
+        }
+    }
+
+    //refresh token 유효성 검증
+    public boolean validateRefreshToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException ex) {
             logger.info("유효하지 않은 토큰입니다");
-
         } catch (ExpiredJwtException ex) {
             logger.info("만료된 토큰입니다");
         } catch (UnsupportedJwtException ex) {
@@ -58,4 +80,5 @@ public class JwtUtil {
         }
         return false;
     }
+
 }

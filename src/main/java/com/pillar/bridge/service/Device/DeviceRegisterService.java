@@ -1,4 +1,4 @@
-package com.pillar.bridge.service;
+package com.pillar.bridge.service.Device;
 
 import com.pillar.bridge.dto.DeviceDto;
 import com.pillar.bridge.entitiy.Device;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class DeviceService {
+public class DeviceRegisterService {
 
     @Autowired
     private DeviceRepository deviceRepository;
@@ -19,8 +19,7 @@ public class DeviceService {
     @Autowired
     private JwtUtil jwtUtil = new JwtUtil();
 
-    private static final Logger logger = LoggerFactory.getLogger(DeviceService.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(DeviceRegisterService.class);
 
     public DeviceDto registerDevice() {
         Device device = new Device();
