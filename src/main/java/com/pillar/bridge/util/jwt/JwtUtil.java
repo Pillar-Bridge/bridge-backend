@@ -46,18 +46,21 @@ public class JwtUtil {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
-        } catch (MalformedJwtException ex) {
-            logger.info("유효하지 않은 토큰입니다");
-            throw new JwtException("잘못된 형식의 토큰입니다.");
-        } catch (ExpiredJwtException ex) {
-            logger.info("만료된 토큰입니다");
-            throw new JwtException("토큰이 만료되었습니다.");
-        } catch (UnsupportedJwtException ex) {
-            logger.info("잘못된 토큰입니다");
-            throw new JwtException("지원되지 않는 토큰입니다.");
-        } catch (IllegalArgumentException ex) {
-            logger.info("토큰이 비어있습니다");
-            throw new JwtException("토큰이 비어있습니다.");
+        } catch (SignatureException e) {
+            logger.info("SignatureException");
+            throw new JwtException(ErrorMessage.WRONG_TYPE_TOKEN.getMsg());
+        } catch (MalformedJwtException e) {
+            logger.info("MalformedJwtException");
+            throw new JwtException(ErrorMessage.UNSUPPORTED_TOKEN.getMsg());
+        } catch (ExpiredJwtException e) {
+            logger.info("ExpiredJwtException");
+            throw new JwtException(ErrorMessage.EXPIRED_TOKEN.getMsg());
+        } catch (IllegalArgumentException e) {
+            logger.info("IllegalArgumentException");
+            throw new JwtException(ErrorMessage.UNKNOWN_ERROR.getMsg());
+        } catch (NullPointerException e) {
+            logger.info("NullPointerException");
+            throw new JwtException(ErrorMessage.ACCESS_DENIED.getMsg());
         }
     }
 
