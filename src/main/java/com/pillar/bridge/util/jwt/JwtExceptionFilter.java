@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -44,9 +46,16 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         }
     }
 
-    private void setResponse(HttpServletResponse response, ErrorMessage errorMessage) throws RuntimeException, IOException {
+    private void setResponse(HttpServletResponse response, ErrorMessage errorMessage) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("success", false);
+        responseData.put("message", errorMessage.getMsg());
+
+        String jsonResponse = objectMapper.writeValueAsString(responseData);
+
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(errorMessage.getCode());
-        response.getWriter().print(errorMessage.getMsg());
+        response.getWriter().write(jsonResponse);
     }
 }
