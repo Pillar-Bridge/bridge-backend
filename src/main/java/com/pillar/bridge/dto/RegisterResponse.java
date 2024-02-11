@@ -1,6 +1,6 @@
 package com.pillar.bridge.dto;
 
-public class DeviceDto {
+public class RegisterResponse {
 
     private String accessToken;
     private String refreshToken;
