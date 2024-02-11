@@ -1,6 +1,6 @@
 package com.pillar.bridge.service.Device;
 
-import com.pillar.bridge.dto.DeviceDto;
+import com.pillar.bridge.dto.RegisterResponse;
 import com.pillar.bridge.entitiy.Device;
 import com.pillar.bridge.repository.DeviceRepository;
 import com.pillar.bridge.util.jwt.JwtUtil;
@@ -21,7 +21,7 @@ public class DeviceRegisterService {
 
     private static final Logger logger = LoggerFactory.getLogger(DeviceRegisterService.class);
 
-    public DeviceDto registerDevice() {
+    public RegisterResponse registerDevice() {
         Device device = new Device();
         device.setUuid(UUID.randomUUID().toString());
 
@@ -34,7 +34,7 @@ public class DeviceRegisterService {
         logger.info("Refresh Token: " + refreshToken);
         deviceRepository.save(device); // DB에 저장
 
-        DeviceDto deviceDto = new DeviceDto();
+        RegisterResponse deviceDto = new RegisterResponse();
         deviceDto.setAccessToken(accessToken);
         deviceDto.setRefreshToken(refreshToken);
 
