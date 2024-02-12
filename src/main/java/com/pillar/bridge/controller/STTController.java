@@ -1,4 +1,5 @@
 package com.pillar.bridge.controller;
+import com.pillar.bridge.util.apiUtils.ResponseDto;
 import com.pillar.bridge.util.apiUtils.ResponseUtil;
 import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.service.STTService;
@@ -19,8 +20,8 @@ public class STTController {
     }
 
     @PostMapping("/audio")
-    public ResponseEntity<?> transcribeAudio(@RequestParam("file") MultipartFile file) {
+    public ResponseDto<String> transcribeAudio(@RequestParam("file") MultipartFile file) {
         String transcription = sttService.transcribeAudio(file);
-        return ResponseEntity.ok(ResponseUtil.SUCCESS(SuccessResponse.OK, "텍스트 변환 성공", transcription));
+        return ResponseUtil.SUCCESS(SuccessResponse.OK, "텍스트 변환 성공", transcription);
     }
 }
