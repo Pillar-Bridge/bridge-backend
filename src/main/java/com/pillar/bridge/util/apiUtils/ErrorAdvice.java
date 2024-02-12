@@ -1,7 +1,5 @@
 package com.pillar.bridge.util.apiUtils;
 
-import com.pillar.bridge.util.apiUtils.ResponseDto;
-import com.pillar.bridge.util.apiUtils.ResponseUtil;
 import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
-public class ExceptionAdvice {
+public class ErrorAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseDto<String> handleMessageNotReadableException(HttpMessageNotReadableException ex) {
         if (ex.getMessage() != null && ex.getMessage().contains("Unexpected character")) {

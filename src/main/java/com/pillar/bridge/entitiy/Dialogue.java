@@ -20,19 +20,21 @@ public class Dialogue {
     @Column(name = "PLACE", length = 10, nullable = false)
     private String place;
 
-    @Column(name = "UUID", nullable = false)
-    private String deviceUuid;
+    @ManyToOne
+    @JoinColumn(name = "UUID", referencedColumnName = "UUID", nullable = false)
+    private Device device;
 
     public void setPlace(String place) {
         this.place = place;
     }
 
-    public String getUuid() {
-        return deviceUuid;
+    public Device getDevice() {
+        return device;
     }
 
+
     public long getId(){ return dialogueId;}
-    public void setUuid(String deviceUuid) {
-        this.deviceUuid = deviceUuid;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 }
