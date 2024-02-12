@@ -7,16 +7,18 @@ import com.pillar.bridge.util.apiUtils.ResponseUtil;
 import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@RequestMapping("/device")
 public class DeviceRegisterController {
 
     @Autowired
     private DeviceRegisterService deviceService;
 
-    @GetMapping("/device/register")
+    @GetMapping("/register")
     public ResponseDto<RegisterResponse> registerDevice(HttpServletResponse response) {
         RegisterResponse device = deviceService.registerDevice();
 

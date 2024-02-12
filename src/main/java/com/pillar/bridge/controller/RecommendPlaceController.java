@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
@@ -23,23 +24,16 @@ public class RecommendPlaceController {
     RecommendPlaceService recommendPlaceService;
 
     @PostMapping("/places/recommendations")
-    public ResponseEntity<ResponseDto<NameList>> searchPlaceByKeywordPost(@RequestBody Map<String, Object> requestBody) {
+    public ResponseDto<NameList> searchPlaceByKeywordPost(@RequestBody Map<String, Object> requestBody) {
         double latitude = (double) requestBody.get("latitude");
         double longitude = (double) requestBody.get("longitude");
         int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 500;
 
-        logger.info("/kakao_api 위도 [{}], 경도 [{}], radius [{}]", latitude, longitude, radius);
+        logger.info("위도 [{}], 경도 [{}], radius [{}]", latitude, longitude, radius);
 
         NameList nameList = recommendPlaceService.searchPlaceByKeyword(latitude, longitude, radius);
-        if (nameList != null) {
-            // Success case
-            ResponseDto<NameList> response = ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", nameList);
-            return ResponseEntity.ok(response);
-        } else {
-            ResponseDto<NameList> response = ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, "internal server error",null);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
+        return ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", nameList);
     }
-
 }
+
 

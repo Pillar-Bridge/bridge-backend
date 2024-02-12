@@ -8,15 +8,17 @@ import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/device")
 public class DeviceRefreshController {
 
     @Autowired
     private DeviceRefreshService deviceRefreshService;
 
-    @PostMapping("/device/refresh")
+    @PostMapping("/refresh")
     public ResponseDto<String> refreshToken(@RequestHeader("RefreshToken") String refreshToken) {
         if (refreshToken != null && !refreshToken.isEmpty()) {
             String newAccessToken = deviceRefreshService.refreshToken(refreshToken);
