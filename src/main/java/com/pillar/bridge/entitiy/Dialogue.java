@@ -1,5 +1,6 @@
 package com.pillar.bridge.entitiy;
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,24 +15,35 @@ import lombok.NoArgsConstructor;
 @Table(name = "DIALOGUES")
 public class Dialogue {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long dialogueId;
+    private String dialogueId;
 
     @Column(name = "PLACE", length = 10, nullable = false)
     private String place;
 
-    @Column(nullable = false)
-    private String uuid;
+    @ManyToOne
+    @JoinColumn(name = "uuid", referencedColumnName = "uuid")
+    private Device device;
+
+    @PrePersist
+    public void initializeNanoId() {
+        if (dialogueId == null) {
+            dialogueId = NanoIdUtils.randomNanoId();
+        }
+    }
 
     public void setPlace(String place) {
         this.place = place;
     }
 
-    public String getUuid() {
-        return uuid;
+    public void setDevice(Device device) {
+        this.device = device;
     }
-    public long getId(){ return dialogueId;}
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public String getId() {
+        return dialogueId;
     }
 }
