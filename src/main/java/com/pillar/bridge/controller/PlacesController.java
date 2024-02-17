@@ -1,9 +1,8 @@
 package com.pillar.bridge.controller;
 
-import com.pillar.bridge.util.apiUtils.ResponseDto;
-import com.pillar.bridge.util.apiUtils.ResponseUtil;
-import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
-import com.pillar.bridge.util.apiUtils.codeStatus.SuccessResponse;
+import com.pillar.bridge.apiUtils.ResponseDto;
+import com.pillar.bridge.apiUtils.ResponseUtil;
+import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.dto.PlacesDto;
 import com.pillar.bridge.dto.googleApi.PlacesResponse;
 import com.pillar.bridge.service.PlacesService;

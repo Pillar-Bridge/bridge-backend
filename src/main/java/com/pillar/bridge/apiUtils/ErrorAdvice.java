@@ -1,12 +1,11 @@
-package com.pillar.bridge.util.apiUtils;
+package com.pillar.bridge.apiUtils;
 
-import com.pillar.bridge.util.apiUtils.codeStatus.ErrorResponse;
+import com.pillar.bridge.apiUtils.codeStatus.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,16 +26,6 @@ public class ErrorAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseDto<String> handleException(Exception ex) {
         return ResponseUtil.FAILED(ErrorResponse.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseDto<String> handleAccessDeniedException(AccessDeniedException ex) {
-        return ResponseUtil.FAILED(ErrorResponse.FORBIDDEN, "접근이 거부되었습니다.", null);
-    }
-
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseDto<String> handleAuthenticationException(AuthenticationException ex) {
-        return ResponseUtil.FAILED(ErrorResponse.UNAUTHORIZED, "인증에 실패하였습니다.", null);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

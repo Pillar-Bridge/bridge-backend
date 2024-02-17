@@ -17,11 +17,9 @@ public class DialogueService {
     private DialogueRepository dialogueRepository;
 
     public Dialogue createDialogue(String place, String uuid) {
-        Device device = deviceRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("Device not found"));
-
         Dialogue dialogue = new Dialogue();
         dialogue.setPlace(place);
-        dialogue.setDevice(device);
+        dialogue.setUuid(uuid);
         return dialogueRepository.save(dialogue);
     }
 }
