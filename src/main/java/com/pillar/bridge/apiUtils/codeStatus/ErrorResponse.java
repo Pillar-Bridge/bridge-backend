@@ -1,4 +1,4 @@
-package com.pillar.bridge.util.apiUtils.codeStatus;
+package com.pillar.bridge.apiUtils.codeStatus;
 
 public enum ErrorResponse {
     BAD_REQUEST(400, "Bad Request"),
