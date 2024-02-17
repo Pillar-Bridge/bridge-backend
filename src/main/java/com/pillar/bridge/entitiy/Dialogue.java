@@ -32,7 +32,6 @@ public class Dialogue {
         return device;
     }
 
-
     public long getId(){ return dialogueId;}
     public void setDevice(Device device) {
         this.device = device;

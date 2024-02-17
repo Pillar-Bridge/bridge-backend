@@ -60,9 +60,4 @@ public class Messages {
         return message_text;
     }
 
-
-
-
-
-
 }
