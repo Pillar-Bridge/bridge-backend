@@ -16,10 +16,15 @@ public class DialogueService {
     @Autowired
     private DialogueRepository dialogueRepository;
 
+    @Autowired
+    private DeviceService deviceService;
+
     public Dialogue createDialogue(String place, String uuid) {
+        Device device = deviceService.saveDeviceIfNotExists(uuid);
+
         Dialogue dialogue = new Dialogue();
         dialogue.setPlace(place);
-        dialogue.setUuid(uuid);
-        return dialogueRepository.save(dialogue);
+        dialogue.setDevice(device);
+        return dialogueRepository.save(dialogue); // Dialogue 저장
     }
 }

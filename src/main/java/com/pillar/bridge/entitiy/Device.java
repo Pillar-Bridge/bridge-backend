@@ -14,17 +14,13 @@ public class Device {
 
     @Column(nullable = false)
     private String uuid;
-    @Column(nullable = false)
-    private String refreshToken;
 
     public String getUuid() {
         return uuid;
     }
-    public String getRefreshToken() { return refreshToken; }
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-    public void setRefreshToken(String refreshToken) { this.refreshToken = refreshToken; }
 
 }
