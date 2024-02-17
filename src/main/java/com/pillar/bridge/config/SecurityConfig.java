@@ -30,10 +30,12 @@ public class SecurityConfig {
         http
                 .csrf((csrf)->csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/device/register", "/places/recommendations", "/device/refresh").permitAll()
+                        .requestMatchers("/device/register", "/places/recommendations", "/device/refresh", ".dialogues", "/dialogues/audio").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter() ,JwtAuthenticationFilter.class);
         return http.build();
+
     }
+
 }
