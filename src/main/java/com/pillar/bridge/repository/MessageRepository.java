@@ -1,9 +1,13 @@
 package com.pillar.bridge.repository;
 import com.pillar.bridge.entitiy.Messages;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Messages, Integer> {
-    List<Messages> findByFullDialogue(String dialogueId);
+    @Query("SELECT m FROM Messages m WHERE m.dialogue.dialogueId = :dialogueId")
+    List<Messages> findByFullDialogue(@Param("dialogueId") String dialogueId);
+
 }
