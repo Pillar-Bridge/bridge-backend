@@ -1,6 +1,6 @@
 package com.pillar.bridge.controller;
 
-import com.pillar.bridge.dto.FullDialougeDto;
+import com.pillar.bridge.dto.FullDialogue.FullDialougeDto;
 import com.pillar.bridge.service.FullDialogueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

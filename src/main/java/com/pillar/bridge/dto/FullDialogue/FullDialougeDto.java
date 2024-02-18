@@ -1,4 +1,4 @@
-package com.pillar.bridge.dto;
+package com.pillar.bridge.dto.FullDialogue;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.pillar.bridge.service;
 
-import com.pillar.bridge.dto.FullDialougeDto;
+import com.pillar.bridge.dto.FullDialogue.FullDialougeDto;
 import com.pillar.bridge.entitiy.Messages;
 import com.pillar.bridge.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
