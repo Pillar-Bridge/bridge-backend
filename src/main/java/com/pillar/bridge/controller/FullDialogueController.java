@@ -1,5 +1,9 @@
 package com.pillar.bridge.controller;
 
+import com.pillar.bridge.apiUtils.ResponseDto;
+import com.pillar.bridge.apiUtils.ResponseUtil;
+import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
+import com.pillar.bridge.dto.FullDialogue.FullDialogueDto;
 import com.pillar.bridge.dto.FullDialogue.FullDialogueResponseDto;
 import com.pillar.bridge.service.FullDialogueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,8 @@ public class FullDialogueController {
     private FullDialogueService fullDialogueService;
 
     @GetMapping("/dialogue/{dialogueId}")
-    public FullDialogueResponseDto getDialogueDetails(@PathVariable("dialogueId") String dialogueId) {
-        return fullDialogueService.getDialogueDetails(dialogueId);
+    public ResponseDto<FullDialogueResponseDto> getDialogueDetailsTest(@PathVariable("dialogueId") String dialogueId) {
+        FullDialogueResponseDto response = fullDialogueService.getDialogueDetails(dialogueId);
+        return ResponseUtil.SUCCESS(SuccessResponse.OK, "success", response);
     }
 }
