@@ -20,8 +20,9 @@ public class Messages {
     @Id
     @Column(name = "message_Id", nullable = false)
     private String message_Id;
-    @Column(nullable = false)
-    private String dialogueId;
+    @ManyToOne
+    @JoinColumn(name = "dialogueId", referencedColumnName = "dialogueId", nullable = false)
+    private Dialogue dialogue;
     private String speaker;
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
@@ -32,8 +33,8 @@ public class Messages {
         this.message_Id = UUID.randomUUID().toString();
     }
 
-    public void setDialogueId(String dialogueId) {
-        this.dialogueId = dialogueId;
+    public void setDialogue(Dialogue dialogue) {
+        this.dialogue = dialogue;
     }
 
     public void setSpeaker(String speaker) {
