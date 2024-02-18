@@ -6,9 +6,7 @@ import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.dto.PlacesDto;
 import com.pillar.bridge.dto.googleApi.PlacesResponse;
 import com.pillar.bridge.service.PlacesService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PlacesController {
@@ -19,10 +17,18 @@ public class PlacesController {
         this.placesService = placesService;
     }
 
-    @PostMapping("/places/recommendations/google")
-    public ResponseDto<PlacesResponse> searchNearby(@RequestBody PlacesDto request) {
+    @GetMapping("/places/recommendations/google")
+    public ResponseDto<PlacesResponse> searchNearby(
+            @RequestParam("latitude") double latitude,
+            @RequestParam("longitude") double longitude,
+            @RequestParam("radius") int radius) {
+
+        PlacesDto request = new PlacesDto();
+        request.setLatitude(latitude);
+        request.setLongitude(longitude);
 
         PlacesResponse response = placesService.searchNearbyPlaces(request);
         return ResponseUtil.SUCCESS(SuccessResponse.OK, "Successfully retrieved data", response);
     }
+
 }
