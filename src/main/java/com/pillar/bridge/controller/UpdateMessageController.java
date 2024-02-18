@@ -6,7 +6,7 @@ import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.dto.UpdateMessage.UpdateRequest;
 import com.pillar.bridge.dto.UpdateMessage.UpdateResponse;
 import com.pillar.bridge.entitiy.Messages;
-import com.pillar.bridge.service.MessageService;
+import com.pillar.bridge.service.UpdateMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UpdateMessageController {
 
     @Autowired
-    private MessageService messageService;
+    private UpdateMessageService messageService;
 
     @PostMapping("/{dialogueId}/messages")
     public ResponseDto<UpdateResponse> createMessage(@PathVariable("dialogueId") String dialogueId, @RequestBody UpdateRequest messageDTO) {

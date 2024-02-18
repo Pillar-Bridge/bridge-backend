@@ -25,6 +25,6 @@ public class DialogueService {
         Dialogue dialogue = new Dialogue();
         dialogue.setPlace(place);
         dialogue.setDevice(device);
-        return dialogueRepository.save(dialogue); // Dialogue 저장
+        return dialogueRepository.save(dialogue);
     }
 }
