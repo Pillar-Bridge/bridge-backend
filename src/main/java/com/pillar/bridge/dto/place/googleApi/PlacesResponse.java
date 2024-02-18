@@ -1,4 +1,6 @@
-package com.pillar.bridge.dto.googleApi;
+package com.pillar.bridge.dto.place.googleApi;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class PlacesResponse {
 
     public static class Place {
         private DisplayName displayName;
+
 
         private String primaryType;
 
@@ -45,6 +48,7 @@ public class PlacesResponse {
         }
 
         public static class DisplayName {
+
             private String text;
 
             private String languageCode;

@@ -1,8 +1,8 @@
 package com.pillar.bridge.service;
 
 import com.pillar.bridge.dto.PlacesDto;
-import com.pillar.bridge.dto.googleApi.PlacesRequest;
-import com.pillar.bridge.dto.googleApi.PlacesResponse;
+import com.pillar.bridge.dto.place.googleApi.PlacesRequest;
+import com.pillar.bridge.dto.place.googleApi.PlacesResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
-public class PlacesService {
+public class RecommPlaceGoogleService {
     @Value("${google.api.key}")
     private String apiKey;
     private final RestTemplate restTemplate;
-    public PlacesService(RestTemplate restTemplate) {
+    public RecommPlaceGoogleService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

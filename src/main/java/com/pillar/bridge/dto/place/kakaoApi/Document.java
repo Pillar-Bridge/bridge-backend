@@ -1,4 +1,4 @@
-package com.pillar.bridge.dto.kakaoApi;
+package com.pillar.bridge.dto.place.kakaoApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
