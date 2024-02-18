@@ -61,4 +61,8 @@ public class Messages {
         return message_text;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
 }

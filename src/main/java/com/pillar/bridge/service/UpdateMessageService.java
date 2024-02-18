@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class MessageService {
+public class UpdateMessageService {
 
     @Autowired
     private DialogueRepository dialogueRepository;
