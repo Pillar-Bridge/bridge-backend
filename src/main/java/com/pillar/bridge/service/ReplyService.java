@@ -3,12 +3,18 @@ package com.pillar.bridge.service;
 import com.pillar.bridge.dto.RequestModel;
 import com.pillar.bridge.entitiy.Messages;
 import com.pillar.bridge.repository.MessageRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Service
 public class ReplyService {
@@ -26,17 +32,38 @@ public class ReplyService {
                 .orElse("No message found for the given Dialogue ID");
     }
 
-    public String getRecommendation(String dialogueId) {
+    public String sendHttpRequest(String dialogueId) {
         String messageText = getLatestMessageText(dialogueId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        try {
+            URL url = new URL("http://203.253.71.189:5000/recomm");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
 
-        RequestModel request = new RequestModel("cafe", messageText, "en");
-        HttpEntity<RequestModel> requestEntity = new HttpEntity<>(request, headers);
+            JSONObject jsonInput = new JSONObject();
+            jsonInput.put("place", "cafe");
+            jsonInput.put("text", messageText);
+            jsonInput.put("lang", "en");
 
-        String fastApiUrl = "http://203.253.71.189:5000/recomm";
-        String response = restTemplate.postForObject(fastApiUrl, requestEntity, String.class);
+            try(DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.writeBytes(jsonInput.toString());
+                wr.flush();
+            }
 
-        return response;
+            StringBuilder response = new StringBuilder();
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+
+            return response.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
