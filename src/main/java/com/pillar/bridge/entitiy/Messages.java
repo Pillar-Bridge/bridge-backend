@@ -1,12 +1,13 @@
 package com.pillar.bridge.entitiy;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -17,43 +18,42 @@ import lombok.NoArgsConstructor;
 public class Messages {
 
     @Id
-    private Integer message_Id;
-
-    private Integer dialogue_Id;
-
+    @Column(name = "message_Id", nullable = false)
+    private String message_Id;
+    @Column(nullable = false)
+    private String dialogueId;
     private String speaker;
-
-    private Integer timestamp;
-
+    @Column(name = "timestamp", nullable = false)
+    private LocalDateTime timestamp;
     private String message_text;
 
+    @PrePersist
+    private void generateUUID() {
+        this.message_Id = UUID.randomUUID().toString();
+    }
 
-    public void setDialogue_Id(Integer dialogue_Id) {
-        this.dialogue_Id = dialogue_Id;
+    public void setDialogueId(String dialogueId) {
+        this.dialogueId = dialogueId;
     }
 
     public void setSpeaker(String speaker) {
         this.speaker = speaker;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setMessage_text(String messageText) {
+        this.message_text = messageText;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
-    public void setMessage_text(String message_text) {
-        this.message_text = message_text;
-    }
-
-    public Integer getDialogue_Id() {
-        return dialogue_Id;
+    public String getMessage_Id() {
+        return message_Id;
     }
 
     public String getSpeaker() {
         return speaker;
-    }
-
-    public Integer getTimestamp() {
-        return timestamp;
     }
 
     public String getMessage_text() {
