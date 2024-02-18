@@ -3,7 +3,7 @@ package com.pillar.bridge.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pillar.bridge.config.Constants;
 import com.pillar.bridge.dto.NameList;
-import com.pillar.bridge.dto.kakaoApi.PlaceNameResponse;
+import com.pillar.bridge.dto.place.kakaoApi.PlaceNameResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class RecommendPlaceService {
-    private final Logger logger = LoggerFactory.getLogger(RecommendPlaceService.class);
+public class RecommPlaceKaKAoService {
+    private final Logger logger = LoggerFactory.getLogger(RecommPlaceKaKAoService.class);
     private static final String AUTHORIZATION = "Authorization";
     private static final String KAKAO_APP_KEY_PREFIX = "KakaoAK ";
     @Autowired

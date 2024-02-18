@@ -1,4 +1,4 @@
-package com.pillar.bridge.dto.googleApi;
+package com.pillar.bridge.dto.place.googleApi;
 
 import java.util.List;
 
