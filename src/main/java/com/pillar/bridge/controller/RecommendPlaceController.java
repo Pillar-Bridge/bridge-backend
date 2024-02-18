@@ -19,11 +19,11 @@ public class RecommendPlaceController {
     @Autowired
     RecommendPlaceService recommendPlaceService;
 
-    @PostMapping("/places/recommendations")
-    public ResponseDto<NameList> searchPlaceByKeywordPost(@RequestBody Map<String, Object> requestBody) {
-        double latitude = (double) requestBody.get("latitude");
-        double longitude = (double) requestBody.get("longitude");
-        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 500;
+    @GetMapping("/places/recommendations")
+    public ResponseDto<NameList> searchPlaceByKeywordGet(
+            @RequestParam("latitude") double latitude,
+            @RequestParam("longitude") double longitude,
+            @RequestParam(value = "radius", defaultValue = "500") int radius) {
 
         logger.info("위도 [{}], 경도 [{}], radius [{}]", latitude, longitude, radius);
 
