@@ -46,4 +46,8 @@ public class Dialogue {
     public String getId() {
         return dialogueId;
     }
+
+    public String getPlace() {
+        return place;
+    }
 }
