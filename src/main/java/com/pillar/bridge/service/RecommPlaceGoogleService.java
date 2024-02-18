@@ -40,6 +40,6 @@ public class RecommPlaceGoogleService {
         PlacesRequest.LocationRestriction.Circle circle = new PlacesRequest.LocationRestriction.Circle(center, 1000.0);
         PlacesRequest.LocationRestriction locationRestriction = new PlacesRequest.LocationRestriction(circle);
 
-        return new PlacesRequest(List.of("convenience_store"), 10, "DISTANCE", locationRestriction);
+        return new PlacesRequest(List.of("convenience_store", "restaurant"), 10, "DISTANCE", locationRestriction);
     }
 }

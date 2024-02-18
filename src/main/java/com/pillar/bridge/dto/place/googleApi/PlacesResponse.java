@@ -51,13 +51,10 @@ public class PlacesResponse {
 
             private String text;
 
-            private String languageCode;
-
             public DisplayName() {}
 
-            public DisplayName(String text, String languageCode) {
+            public DisplayName(String text) {
                 this.text = text;
-                this.languageCode = languageCode;
             }
 
             public String getText() {
@@ -68,13 +65,6 @@ public class PlacesResponse {
                 this.text = text;
             }
 
-            public String getLanguageCode() {
-                return languageCode;
-            }
-
-            public void setLanguageCode(String languageCode) {
-                this.languageCode = languageCode;
-            }
         }
 
     }
