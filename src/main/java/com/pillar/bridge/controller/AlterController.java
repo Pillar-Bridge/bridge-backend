@@ -8,6 +8,7 @@ import com.pillar.bridge.dto.alter.AlterRequest;
 import com.pillar.bridge.service.AlterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class AlterController {
         this.alterService = alterService;
     }
 
-    @GetMapping("/provide-modification-options")
+    @PostMapping("/provide-modification-options")
     public ResponseDto<AlterResponse> getOptions(@RequestBody AlterRequest request) {
         return ResponseUtil.SUCCESS(SuccessResponse.OK, "요청에 성공했습니다", alterService.getOptions(request));
     }
