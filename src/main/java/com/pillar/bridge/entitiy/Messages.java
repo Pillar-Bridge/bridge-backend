@@ -23,9 +23,14 @@ public class Messages {
     @ManyToOne
     @JoinColumn(name = "dialogueId", referencedColumnName = "dialogueId", nullable = false)
     private Dialogue dialogue;
+
+    @Column(name = "speaker", nullable = false)
     private String speaker;
+
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
+
+    @Column(name = "message_text", nullable = false)
     private String message_text;
 
     @PrePersist

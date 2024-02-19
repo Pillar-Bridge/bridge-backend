@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class FullDialogueService {
         
         dialogueDetails.setSituation("주문 중"); // 수정
 
-        List<FullDialogueDto> messages = messageRepository.findByFullDialogue(dialogueId)
+        List<FullDialogueDto> messages = messageRepository.findByDialogueId(dialogueId)
                 .stream()
                 .map(this::mapToMessageResponse)
                 .collect(Collectors.toList());
