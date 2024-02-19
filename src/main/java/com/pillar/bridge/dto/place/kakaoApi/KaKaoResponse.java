@@ -1,13 +1,13 @@
-package com.pillar.bridge.dto;
+package com.pillar.bridge.dto.place.kakaoApi;
 
 import com.pillar.bridge.dto.place.kakaoApi.Document;
 
 import java.util.List;
 
-public class NameList {
+public class KaKaoResponse {
     private List<Document> documents;
 
-    public NameList(List<Document> documents) {
+    public KaKaoResponse(List<Document> documents) {
         this.documents = documents;
     }
 

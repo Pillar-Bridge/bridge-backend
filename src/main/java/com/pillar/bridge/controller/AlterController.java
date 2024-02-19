@@ -16,14 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AlterController {
-    private final AlterService alterService;
-    private final DeviceRepository deviceRepository;
-
     @Autowired
-    public AlterController(AlterService alterService, DeviceRepository deviceRepository) {
-        this.alterService = alterService;
-        this.deviceRepository = deviceRepository;
-    }
+    private AlterService alterService;
+    @Autowired
+    private DeviceRepository deviceRepository;
 
     @PostMapping("/provide-modification-options")
     public ResponseDto<AlterResponse> getOptions(@RequestBody AlterRequest request, @RequestHeader("UUID") String uuid) {

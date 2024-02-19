@@ -26,7 +26,6 @@ public class ReplyController {
     private ReplyService replyService;
     @Autowired
     private DeviceRepository deviceRepository;
-
     @Autowired
     private DialogueRepository dialogueRepository;
 

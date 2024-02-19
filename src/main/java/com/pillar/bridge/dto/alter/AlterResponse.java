@@ -4,7 +4,6 @@ import java.util.List;
 
 public class AlterResponse {
     private List<WordOption> alternatives;
-
     public AlterResponse(List<WordOption> alternatives) {
         this.alternatives = alternatives;
     }

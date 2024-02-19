@@ -12,7 +12,6 @@ public class Document {
     @JsonProperty("category_group_name")
     private String categoryGroupName;
 
-
     public String getPlaceName() {
         return placeName;
     }

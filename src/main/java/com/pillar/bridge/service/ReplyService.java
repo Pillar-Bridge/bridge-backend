@@ -4,6 +4,7 @@ import com.pillar.bridge.entitiy.Messages;
 import com.pillar.bridge.repository.DialogueRepository;
 import com.pillar.bridge.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,15 +17,16 @@ public class ReplyService {
 
     @Autowired
     private MessageRepository messagesRepository;
-
     @Autowired
     private DialogueRepository dialogueRepository;
-
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${ai.server.url}")
+    private String baseUrl;
+
     public Map<String, Object> getLatestMessageResponse(String dialogueId) {
-        String latestMessage = messagesRepository.findByDialogueId(dialogueId).stream()
+        String latestMessage = messagesRepository.findByTimeASC(dialogueId).stream()
                 .findFirst()
                 .map(Messages::getMessage_text)
                 .orElse("No message found for the given Dialogue ID");
@@ -39,7 +41,9 @@ public class ReplyService {
         request.put("text", latestMessage);
         request.put("lang", "eng");
 
-        ResponseEntity<Map> response = restTemplate.postForEntity("http://203.253.71.189:5000/recomm", request, Map.class);
+        String fullUrl = baseUrl + "/recomm";
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(fullUrl, request, Map.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();

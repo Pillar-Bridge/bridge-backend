@@ -31,7 +31,7 @@ public class FullDialogueService {
         
         dialogueDetails.setSituation(" ");
 
-        List<FullDialogueDto> messages = messageRepository.findByDialogueId(dialogueId)
+        List<FullDialogueDto> messages = messageRepository.findByTimeASC(dialogueId)
                 .stream()
                 .map(this::mapToMessageResponse)
                 .collect(Collectors.toList());
