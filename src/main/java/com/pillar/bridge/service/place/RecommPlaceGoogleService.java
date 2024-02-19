@@ -10,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +34,6 @@ public class RecommPlaceGoogleService {
         HttpEntity<PlacesRequest> entity = new HttpEntity<>(request, headers);
         GoogleResponseDto response = restTemplate.postForEntity(url, entity, GoogleResponseDto.class).getBody();
 
-        // 변환 로직을 사용하여 GoogleResponseDto를 List<PlaceResponseDto>로 변환
         return response != null ? response.convertToPlaceResponseDto() : Collections.emptyList();
     }
 

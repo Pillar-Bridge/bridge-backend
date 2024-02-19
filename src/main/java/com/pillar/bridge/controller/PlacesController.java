@@ -23,7 +23,6 @@ public class PlacesController {
 
     @Autowired
     private RecommPlaceKaKAoService recommendPlaceService;
-
     @Autowired
     private RecommPlaceGoogleService placesService;
 

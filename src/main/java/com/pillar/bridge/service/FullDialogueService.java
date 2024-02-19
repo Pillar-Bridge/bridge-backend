@@ -9,8 +9,6 @@ import com.pillar.bridge.repository.MessageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +20,13 @@ public class FullDialogueService {
     @Autowired
     private DialogueRepository dialogueRepository;
 
-
     public FullDialogueResponseDto getDialogueDetails(String dialogueId) {
         FullDialogueResponseDto dialogueDetails = new FullDialogueResponseDto();
         dialogueDetails.setDialogueId(dialogueId);
         
         // 장소 정보
         Dialogue dialogue = dialogueRepository.findById(dialogueId).orElseThrow(
-                () -> new EntityNotFoundException( dialogueId + "is not found.")
+                () -> new EntityNotFoundException(dialogueId + "is not found.")
         );
         dialogueDetails.setPlace(dialogue.getPlace());
         
@@ -41,7 +38,6 @@ public class FullDialogueService {
                 .collect(Collectors.toList());
 
         dialogueDetails.setMessages(messages);
-
         return dialogueDetails;
     }
 
