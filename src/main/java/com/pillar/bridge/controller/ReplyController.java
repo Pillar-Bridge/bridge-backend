@@ -35,7 +35,6 @@ public class ReplyController {
         if (deviceRepository.findByUuid(uuid).isEmpty()) {
             return ResponseUtil.FAILED(ErrorResponse.BAD_REQUEST, "UUID가 유효하지 않습니다", null);
         }
-        //dialogueID 유효성 검증
         if (dialogueRepository.findById(dialogueId).isEmpty()) {
             return ResponseUtil.FAILED(ErrorResponse.BAD_REQUEST, "dialogueId가 유효하지 않습니다", null);
         }
