@@ -1,8 +1,9 @@
 package com.pillar.bridge.service.place;
 
 import com.pillar.bridge.dto.PlacesDto;
+import com.pillar.bridge.dto.place.googleApi.PlaceResponseDto;
 import com.pillar.bridge.dto.place.googleApi.PlacesRequest;
-import com.pillar.bridge.dto.place.googleApi.PlacesResponse;
+import com.pillar.bridge.dto.place.googleApi.GoogleResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class RecommPlaceGoogleService {
         this.restTemplate = restTemplate;
     }
 
-    public PlacesResponse searchNearbyPlaces(PlacesDto simpleRequest) {
+    public List<PlaceResponseDto> searchNearbyPlaces(PlacesDto simpleRequest) {
         PlacesRequest request = convertToNearbySearchRequest(simpleRequest);
 
         String url = "https://places.googleapis.com/v1/places:searchNearby";
@@ -31,7 +33,10 @@ public class RecommPlaceGoogleService {
         headers.add("X-Goog-FieldMask", "places.displayName,places.primaryType");
 
         HttpEntity<PlacesRequest> entity = new HttpEntity<>(request, headers);
-        return restTemplate.postForEntity(url, entity, PlacesResponse.class).getBody();
+        GoogleResponseDto response = restTemplate.postForEntity(url, entity, GoogleResponseDto.class).getBody();
+
+        // 변환 로직을 사용하여 GoogleResponseDto를 List<PlaceResponseDto>로 변환
+        return response != null ? response.convertToPlaceResponseDto() : Collections.emptyList();
     }
 
     private PlacesRequest convertToNearbySearchRequest(PlacesDto placesDto) {

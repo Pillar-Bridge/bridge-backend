@@ -1,13 +1,11 @@
 package com.pillar.bridge.dto.place.googleApi;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class PlacesResponse {
+public class GoogleResponseDto {
     private List<Place> places;
-    public PlacesResponse() {}
-    public PlacesResponse(List<Place> places) {
+    public GoogleResponseDto() {}
+    public GoogleResponseDto(List<Place> places) {
         this.places = places;
     }
     public List<Place> getPlaces() {
@@ -67,5 +65,11 @@ public class PlacesResponse {
 
         }
 
+    }
+
+    public List<PlaceResponseDto> convertToPlaceResponseDto() {
+        return this.places.stream()
+                .map(place -> new PlaceResponseDto(place.getDisplayName().getText(), place.getPrimaryType()))
+                .collect(Collectors.toList());
     }
 }

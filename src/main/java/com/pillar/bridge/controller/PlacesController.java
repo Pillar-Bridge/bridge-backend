@@ -5,13 +5,16 @@ import com.pillar.bridge.apiUtils.ResponseUtil;
 import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
 import com.pillar.bridge.dto.NameList;
 import com.pillar.bridge.dto.PlacesDto;
-import com.pillar.bridge.dto.place.googleApi.PlacesResponse;
+import com.pillar.bridge.dto.place.googleApi.GoogleResponseDto;
+import com.pillar.bridge.dto.place.googleApi.PlaceResponseDto;
 import com.pillar.bridge.service.place.RecommPlaceGoogleService;
 import com.pillar.bridge.service.place.RecommPlaceKaKAoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PlacesController {
@@ -44,7 +47,7 @@ public class PlacesController {
             PlacesDto request = new PlacesDto();
             request.setLatitude(latitude);
             request.setLongitude(longitude);
-            PlacesResponse response = placesService.searchNearbyPlaces(request);
+            List<PlaceResponseDto> response = placesService.searchNearbyPlaces(request);
             return ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", response);
         }
     }
