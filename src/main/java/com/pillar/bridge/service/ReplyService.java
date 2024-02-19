@@ -5,9 +5,7 @@ import com.pillar.bridge.entitiy.Messages;
 import com.pillar.bridge.repository.MessageRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.BufferedReader;
@@ -15,6 +13,9 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReplyService {
@@ -25,45 +26,31 @@ public class ReplyService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public String getLatestMessageText(String dialogueId) {
-        return messagesRepository.findByDialogueId(dialogueId).stream()
-                .findFirst() // 첫 번째 요소(가장 최근 메시지)를 가져옴
+    public Map<String, Object> getLatestMessageResponse(String dialogueId) {
+        // DB에서 대화 ID에 해당하는 가장 최근 메시지를 가져옴
+        String latestMessage = messagesRepository.findByDialogueId(dialogueId).stream()
+                .findFirst()
                 .map(Messages::getMessage_text)
                 .orElse("No message found for the given Dialogue ID");
-    }
 
-    public String sendHttpRequest(String dialogueId) {
-        String messageText = getLatestMessageText(dialogueId);
-        try {
-            URL url = new URL("http://203.253.71.189:5000/recomm");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setDoOutput(true);
+        // 외부 API 호출을 위한 request 객체 생성
+        Map<String, String> request = new HashMap<>();
+        request.put("place", "cafe");
+        request.put("text", latestMessage);
+        request.put("lang", "eng");
 
-            JSONObject jsonInput = new JSONObject();
-            jsonInput.put("place", "cafe");
-            jsonInput.put("text", messageText);
-            jsonInput.put("lang", "en");
+        // 외부 API 호출
+        ResponseEntity<Map> response = restTemplate.postForEntity("http://203.253.71.189:5000/recomm", request, Map.class);
 
-            try(DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-                wr.writeBytes(jsonInput.toString());
-                wr.flush();
-            }
-
-            StringBuilder response = new StringBuilder();
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    response.append(line);
-                }
-            }
-
-            return response.toString();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        // API 응답 처리
+        if (response.getStatusCode() == HttpStatus.OK) {
+            // 외부 API로부터 받은 응답 전체를 반환
+            return response.getBody();
+        } else {
+            // API 호출 실패 시, 적절한 처리 또는 예외 처리
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Failed to call external API");
+            return errorResponse;
         }
     }
 }

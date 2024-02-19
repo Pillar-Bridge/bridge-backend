@@ -1,10 +1,6 @@
 package com.pillar.bridge.service;
 
 import com.pillar.bridge.dto.TTS.TTSRequest;
-import com.pillar.bridge.dto.TTS.TTSResponse;
-import com.pillar.bridge.dto.TTSDto;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
