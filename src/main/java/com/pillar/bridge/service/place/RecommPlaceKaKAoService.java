@@ -1,4 +1,4 @@
-package com.pillar.bridge.service;
+package com.pillar.bridge.service.place;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pillar.bridge.config.Constants;
