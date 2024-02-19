@@ -9,13 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DialogueService {
-
     @Autowired
     private DeviceRepository deviceRepository;
-
     @Autowired
     private DialogueRepository dialogueRepository;
-
     @Autowired
     private DeviceService deviceService;
 

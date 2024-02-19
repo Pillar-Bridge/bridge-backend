@@ -17,7 +17,6 @@ public class UpdateMessageService {
 
     @Autowired
     private DialogueRepository dialogueRepository;
-
     @Autowired
     private MessageRepository messageRepository;
 
@@ -29,7 +28,6 @@ public class UpdateMessageService {
         }
 
         Dialogue dialogue = dialogueOptional.get();
-
         Messages message = new Messages();
         message.setDialogue(dialogue);
         message.setTimestamp(LocalDateTime.now());
