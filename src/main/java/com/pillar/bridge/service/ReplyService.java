@@ -1,27 +1,24 @@
 package com.pillar.bridge.service;
 
-import com.pillar.bridge.dto.RequestModel;
 import com.pillar.bridge.entitiy.Messages;
+import com.pillar.bridge.repository.DialogueRepository;
 import com.pillar.bridge.repository.MessageRepository;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import com.pillar.bridge.entitiy.Dialogue;
 
 @Service
 public class ReplyService {
 
     @Autowired
     private MessageRepository messagesRepository;
+
+    @Autowired
+    private DialogueRepository dialogueRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -33,9 +30,14 @@ public class ReplyService {
                 .map(Messages::getMessage_text)
                 .orElse("No message found for the given Dialogue ID");
 
+
+        String place = dialogueRepository.findById(dialogueId)
+                .map(Dialogue::getPlace)
+                .orElse("null");
+
         // 외부 API 호출을 위한 request 객체 생성
         Map<String, String> request = new HashMap<>();
-        request.put("place", "cafe");
+        request.put("place", place);
         request.put("text", latestMessage);
         request.put("lang", "eng");
 
