@@ -1,4 +1,4 @@
-package com.pillar.bridge.service;
+package com.pillar.bridge.service.place;
 
 import com.pillar.bridge.dto.PlacesDto;
 import com.pillar.bridge.dto.place.googleApi.PlacesRequest;
@@ -37,9 +37,9 @@ public class RecommPlaceGoogleService {
     private PlacesRequest convertToNearbySearchRequest(PlacesDto placesDto) {
         PlacesRequest.LocationRestriction.Circle.Center center = new PlacesRequest.LocationRestriction.Circle.Center(
                 placesDto.getLatitude(), placesDto.getLongitude());
-        PlacesRequest.LocationRestriction.Circle circle = new PlacesRequest.LocationRestriction.Circle(center, 1000.0);
+        PlacesRequest.LocationRestriction.Circle circle = new PlacesRequest.LocationRestriction.Circle(center, 500.0);
         PlacesRequest.LocationRestriction locationRestriction = new PlacesRequest.LocationRestriction(circle);
 
-        return new PlacesRequest(List.of("convenience_store", "restaurant"), 10, "DISTANCE", locationRestriction);
+        return new PlacesRequest(List.of("library", "school", "university", "movie_theater", "community_center", "accounting", "bank", "restaurant", "bakery", "cafe", "meal_takeaway", "steak_house", "bar", "local_government_office", "police", "post_office", "hospital", "pharmacy", "doctor", "medical_lab", "dental_clinic", "dentist", "drugstore", "lodging", "hotel", "store","barber_shop", "hair_salon","shopping_mall","store", "supermarket", "airport", "subway_station", "bus_station", "taxi_stand"), 10, "DISTANCE", locationRestriction);
     }
 }
