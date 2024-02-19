@@ -50,7 +50,6 @@ public class PlacesRequest {
         this.locationRestriction = locationRestriction;
     }
 
-    // LocationRestriction 내부 클래스
     public static class LocationRestriction {
         private Circle circle;
 
@@ -69,7 +68,6 @@ public class PlacesRequest {
             this.circle = circle;
         }
 
-        // Circle 내부 클래스
         public static class Circle {
             private Center center;
             private double radius;
@@ -98,7 +96,6 @@ public class PlacesRequest {
                 this.radius = radius;
             }
 
-            // Center 내부 클래스
             public static class Center {
                 private double latitude;
                 private double longitude;

@@ -3,10 +3,9 @@ package com.pillar.bridge.controller;
 import com.pillar.bridge.apiUtils.ResponseDto;
 import com.pillar.bridge.apiUtils.ResponseUtil;
 import com.pillar.bridge.apiUtils.codeStatus.SuccessResponse;
-import com.pillar.bridge.dto.NameList;
+import com.pillar.bridge.dto.place.kakaoApi.KaKaoResponse;
 import com.pillar.bridge.dto.PlacesDto;
-import com.pillar.bridge.dto.place.googleApi.GoogleResponseDto;
-import com.pillar.bridge.dto.place.googleApi.PlaceResponseDto;
+import com.pillar.bridge.dto.place.googleApi.PlaceResponse;
 import com.pillar.bridge.service.place.RecommPlaceGoogleService;
 import com.pillar.bridge.service.place.RecommPlaceKaKAoService;
 import org.slf4j.Logger;
@@ -39,14 +38,14 @@ public class PlacesController {
 
         if (isWithinRange(latitude, longitude)) {
             logger.info("한국 내 검색: 위도 [{}], 경도 [{}], 반경 [{}]", latitude, longitude, radius);
-            NameList nameList = recommendPlaceService.searchPlaceByKeyword(latitude, longitude, radius);
+            KaKaoResponse nameList = recommendPlaceService.searchPlaceByKeyword(latitude, longitude, radius);
             return ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", nameList);
         } else {
             logger.info("외국 검색: 위도 [{}], 경도 [{}]", latitude, longitude);
             PlacesDto request = new PlacesDto();
             request.setLatitude(latitude);
             request.setLongitude(longitude);
-            List<PlaceResponseDto> response = placesService.searchNearbyPlaces(request);
+            List<PlaceResponse> response = placesService.searchNearbyPlaces(request);
             return ResponseUtil.SUCCESS(SuccessResponse.OK, "Place search successful", response);
         }
     }

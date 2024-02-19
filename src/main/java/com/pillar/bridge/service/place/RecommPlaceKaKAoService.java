@@ -2,10 +2,8 @@ package com.pillar.bridge.service.place;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pillar.bridge.config.Constants;
-import com.pillar.bridge.dto.NameList;
+import com.pillar.bridge.dto.place.kakaoApi.KaKaoResponse;
 import com.pillar.bridge.dto.place.kakaoApi.PlaceNameResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -18,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class RecommPlaceKaKAoService {
-    private final Logger logger = LoggerFactory.getLogger(RecommPlaceKaKAoService.class);
     private static final String AUTHORIZATION = "Authorization";
     private static final String KAKAO_APP_KEY_PREFIX = "KakaoAK ";
     @Autowired
@@ -27,14 +24,14 @@ public class RecommPlaceKaKAoService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public NameList searchPlaceByKeyword(double latitude, double longitude, int radius) {
+    public KaKaoResponse searchPlaceByKeyword(double latitude, double longitude, int radius) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.set(AUTHORIZATION, KAKAO_APP_KEY_PREFIX + kakaoApiKey);
 
             UriComponents uriComponents = UriComponentsBuilder.fromUriString(Constants.KAKAO_SEARCH_API)
                     .path(Constants.KAKAO_SEARCH_PATH)
-                    .queryParam("category_group_code", String.join(",", "CS2", "BK9", "CT1", "PO3", "AD5", "FD6", "CE7", "HP8", "PM9"))
+                    .queryParam("category_group_code", String.join(",", "MT1", "CS2", "OL7", "BK9", "SW8", "CT1", "PO3", "AD5", "FD6", "CE7", "HP8", "PM9"))
                     .queryParam("y", latitude)
                     .queryParam("x", longitude)
                     .queryParam("radius", radius)
@@ -51,10 +48,9 @@ public class RecommPlaceKaKAoService {
             ObjectMapper mapper = new ObjectMapper();
             PlaceNameResponse placeNameResponse = mapper.readValue(response.getBody(), PlaceNameResponse.class);
 
-            return new NameList(placeNameResponse.getDocuments());
+            return new KaKaoResponse(placeNameResponse.getDocuments());
 
         } catch (Exception e) {
-            logger.error("카카오 api 장소 검색 중 오류", e);
             return null;
         }
     }

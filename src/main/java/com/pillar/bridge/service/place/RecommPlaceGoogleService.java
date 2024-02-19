@@ -1,9 +1,9 @@
 package com.pillar.bridge.service.place;
 
 import com.pillar.bridge.dto.PlacesDto;
-import com.pillar.bridge.dto.place.googleApi.PlaceResponseDto;
+import com.pillar.bridge.dto.place.googleApi.PlaceResponse;
 import com.pillar.bridge.dto.place.googleApi.PlacesRequest;
-import com.pillar.bridge.dto.place.googleApi.GoogleResponseDto;
+import com.pillar.bridge.dto.place.googleApi.GoogleResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +22,7 @@ public class RecommPlaceGoogleService {
         this.restTemplate = restTemplate;
     }
 
-    public List<PlaceResponseDto> searchNearbyPlaces(PlacesDto simpleRequest) {
+    public List<PlaceResponse> searchNearbyPlaces(PlacesDto simpleRequest) {
         PlacesRequest request = convertToNearbySearchRequest(simpleRequest);
 
         String url = "https://places.googleapis.com/v1/places:searchNearby";
@@ -32,7 +32,7 @@ public class RecommPlaceGoogleService {
         headers.add("X-Goog-FieldMask", "places.displayName,places.primaryType");
 
         HttpEntity<PlacesRequest> entity = new HttpEntity<>(request, headers);
-        GoogleResponseDto response = restTemplate.postForEntity(url, entity, GoogleResponseDto.class).getBody();
+        GoogleResponse response = restTemplate.postForEntity(url, entity, GoogleResponse.class).getBody();
 
         return response != null ? response.convertToPlaceResponseDto() : Collections.emptyList();
     }

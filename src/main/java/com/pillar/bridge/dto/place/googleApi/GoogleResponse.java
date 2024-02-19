@@ -2,10 +2,10 @@ package com.pillar.bridge.dto.place.googleApi;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GoogleResponseDto {
+public class GoogleResponse {
     private List<Place> places;
-    public GoogleResponseDto() {}
-    public GoogleResponseDto(List<Place> places) {
+    public GoogleResponse() {}
+    public GoogleResponse(List<Place> places) {
         this.places = places;
     }
     public List<Place> getPlaces() {
@@ -18,7 +18,6 @@ public class GoogleResponseDto {
 
     public static class Place {
         private DisplayName displayName;
-
 
         private String primaryType;
 
@@ -67,9 +66,9 @@ public class GoogleResponseDto {
 
     }
 
-    public List<PlaceResponseDto> convertToPlaceResponseDto() {
+    public List<PlaceResponse> convertToPlaceResponseDto() {
         return this.places.stream()
-                .map(place -> new PlaceResponseDto(place.getDisplayName().getText(), place.getPrimaryType()))
+                .map(place -> new PlaceResponse(place.getDisplayName().getText(), place.getPrimaryType()))
                 .collect(Collectors.toList());
     }
 }
