@@ -23,14 +23,13 @@ public class FullDialogueService {
     public FullDialogueResponseDto getDialogueDetails(String dialogueId) {
         FullDialogueResponseDto dialogueDetails = new FullDialogueResponseDto();
         dialogueDetails.setDialogueId(dialogueId);
-        
-        // 장소 정보
+
         Dialogue dialogue = dialogueRepository.findById(dialogueId).orElseThrow(
                 () -> new EntityNotFoundException(dialogueId + "is not found.")
         );
         dialogueDetails.setPlace(dialogue.getPlace());
         
-        dialogueDetails.setSituation("주문 중"); // 수정
+        dialogueDetails.setSituation(" ");
 
         List<FullDialogueDto> messages = messageRepository.findByDialogueId(dialogueId)
                 .stream()
