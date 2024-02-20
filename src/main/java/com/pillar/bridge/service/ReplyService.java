@@ -3,6 +3,7 @@ package com.pillar.bridge.service;
 import com.pillar.bridge.entitiy.Messages;
 import com.pillar.bridge.repository.DialogueRepository;
 import com.pillar.bridge.repository.MessageRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -62,7 +63,15 @@ public class ReplyService {
         ResponseEntity<Map> response = restTemplate.postForEntity(fullUrl, request, Map.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return response.getBody();
+            Map<String, Object> responseBody = response.getBody();
+            String situation = (String) responseBody.get("situation"); // situation 값을 추출
+
+            Dialogue dialogue = dialogueRepository.findById(dialogueId)
+                    .orElseThrow(() -> new EntityNotFoundException("Dialogue not found with id: " + dialogueId));
+            dialogue.setSituation(situation); // situation 값을 Dialogue 엔티티에 설정
+            dialogueRepository.save(dialogue); // 변경사항을 데이터베이스에 저장
+
+            return responseBody;
         } else {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("error", "Failed to call external API");

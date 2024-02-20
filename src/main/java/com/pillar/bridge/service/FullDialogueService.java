@@ -28,8 +28,9 @@ public class FullDialogueService {
                 () -> new EntityNotFoundException(dialogueId + "is not found.")
         );
         dialogueDetails.setPlace(dialogue.getPlace());
-        
-        dialogueDetails.setSituation(" ");
+        dialogueDetails.setSituation(dialogue.getSituation());
+
+        dialogueDetails.setSituation(dialogue.getSituation());
 
         List<FullDialogueDto> messages = messageRepository.findByTimeASC(dialogueId)
                 .stream()
