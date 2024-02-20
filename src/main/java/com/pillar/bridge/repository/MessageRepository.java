@@ -12,4 +12,9 @@ public interface MessageRepository extends JpaRepository<Messages, Integer> {
 
     @Query("SELECT m FROM Messages m WHERE m.dialogue.dialogueId = ?1 ORDER BY m.timestamp ASC")
     List<Messages> findByTimeASC(String dialogueId);
+
+    @Query("SELECT m FROM Messages m WHERE m.dialogue.dialogueId = ?1 ORDER BY m.timestamp DESC")
+    List<Messages> findByTimeDESC(String dialogueId);
+
+
 }
