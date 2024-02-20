@@ -24,6 +24,9 @@ public class Dialogue {
     @JoinColumn(name = "uuid", referencedColumnName = "uuid")
     private Device device;
 
+    @Column(name = "SITUATION", length = 255)
+    private String situation;
+
     @PrePersist
     public void initializeNanoId() {
         if (dialogueId == null) {
@@ -39,15 +42,25 @@ public class Dialogue {
         this.device = device;
     }
 
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
     public Device getDevice() {
         return device;
     }
+
 
     public String getId() {
         return dialogueId;
     }
 
+    public String getSituation() {
+        return situation;
+    }
     public String getPlace() {
         return place;
     }
+
+
 }
