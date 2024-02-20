@@ -8,8 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.pillar.bridge.entitiy.Dialogue;
 
 @Service
@@ -26,10 +31,21 @@ public class ReplyService {
     private String baseUrl;
 
     public Map<String, Object> getLatestMessageResponse(String dialogueId) {
-        String latestMessage = messagesRepository.findByTimeASC(dialogueId).stream()
-                .findFirst()
+        List<String> messages = messagesRepository.findByTimeDESC(dialogueId).stream()
+                .limit(2)
                 .map(Messages::getMessage_text)
-                .orElse("No message found for the given Dialogue ID");
+                .collect(Collectors.toList());
+
+        Collections.reverse(messages);
+
+        String latestMessages;
+        if (messages.isEmpty()) {
+            latestMessages = "No messages found for the given Dialogue ID";
+        } else if (messages.size() == 1) {
+            latestMessages = messages.get(0);
+        } else {
+            latestMessages = String.join("/", messages);
+        }
 
 
         String place = dialogueRepository.findById(dialogueId)
@@ -38,7 +54,7 @@ public class ReplyService {
 
         Map<String, String> request = new HashMap<>();
         request.put("place", place);
-        request.put("text", latestMessage);
+        request.put("text", latestMessages);
         request.put("lang", "eng");
 
         String fullUrl = baseUrl + "/recomm";
