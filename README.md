@@ -18,6 +18,8 @@ For building and running the application you need:
 - Gradle 8.5
 - SpringBoot 3.2.2
 
+<br>
+
 ## Installation
 terminal:
   ```
