@@ -2,9 +2,13 @@
 
 <br>
 
-```
-Java 17
-SpringBoot 3.2.2
+### Requirements
+For building and running the application you need:
+- Java 17
+- SpringBoot 3.2.2
+
+#### Installation
+``
 DB: Mysql
 ORM: JPA
 Deploy: AWS
