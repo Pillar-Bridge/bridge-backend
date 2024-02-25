@@ -2,17 +2,19 @@
 
 <br>
 
-### Requirements
-For building and running the application you need:
-- Java 17
-- SpringBoot 3.2.2
-
-#### Installation
-``
+```
+Java 17
+SpringBoot 3.2.2
 DB: Mysql
 ORM: JPA
 Deploy: AWS
 ```
+
+### Requirements
+For building and running the application you need:
+
+#### Installation
+
 
 ### ERD
 ![image](https://github.com/Pillar-Bridge/bridge-backend/assets/95979743/3e2629f5-759e-4add-9ee9-f9dad0229201)
